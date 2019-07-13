@@ -6,6 +6,8 @@ const calculate = document.getElementById('calculate');
 const monthlyPayment = document.getElementById('monthly-payment');
 const totalPayment = document.getElementById('total-payment');
 const totalInterest = document.getElementById('total-interest');
+const loadingGif = document.getElementById('loading');
+const results = document.getElementById('results');
 
 calculate.addEventListener('click', e => {
   let amount = amountInput.value;
@@ -15,6 +17,14 @@ calculate.addEventListener('click', e => {
   monthlyPayment.value = getMonthlyPayment(amount, interest, years);
   totalPayment.value = getTotalPayment(monthlyPayment.value, years);
   totalInterest.value = getTotalInterest(totalPayment.value, amount);
+
+  // Show Loading GIF & Remove Results
+  loadingGif.firstElementChild.classList.toggle('d-none');
+  results.classList.add('d-none');
+
+  // Removing Loading GIF and Replace with Results
+  setTimeout(showResults, 3000);
+
   e.preventDefault();
 });
 
@@ -35,4 +45,20 @@ function getTotalPayment(monthPay, yrs) {
 
 function getTotalInterest(total, principle) {
   return (total - principle).toFixed(2);
+}
+
+function showResults() {
+  loadingGif.firstElementChild.classList.toggle('d-none');
+
+  if (checkValidity()) {
+    results.classList.remove('d-none');
+  }
+}
+
+function checkValidity() {
+  if (amount.value == '' || interest.value == '' || years.value == '') {
+    return false;
+  } else {
+    return true;
+  }
 }
