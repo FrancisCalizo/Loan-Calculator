@@ -14,7 +14,7 @@ calculate.addEventListener('click', e => {
 
   monthlyPayment.value = getMonthlyPayment(amount, interest, years);
   totalPayment.value = getTotalPayment(monthlyPayment.value, years);
-
+  totalInterest.value = getTotalInterest(totalPayment.value, amount);
   e.preventDefault();
 });
 
@@ -31,4 +31,8 @@ function getMonthlyPayment(amt, int, yrs) {
 
 function getTotalPayment(monthPay, yrs) {
   return (monthPay * yrs * 12).toFixed(2);
+}
+
+function getTotalInterest(total, principle) {
+  return (total - principle).toFixed(2);
 }
