@@ -8,6 +8,7 @@ const totalPayment = document.getElementById('total-payment');
 const totalInterest = document.getElementById('total-interest');
 const loadingGif = document.getElementById('loading');
 const results = document.getElementById('results');
+const alertErr = document.getElementsByClassName('alert-danger')[0];
 
 calculate.addEventListener('click', e => {
   let amount = amountInput.value;
@@ -52,11 +53,20 @@ function showResults() {
 
   if (checkValidity()) {
     results.classList.remove('d-none');
+  } else {
+    alertErr.classList.remove('d-none');
+    setTimeout(() => alertErr.classList.add('d-none'), 3000);
   }
 }
 
 function checkValidity() {
-  if (amount.value == '' || interest.value == '' || years.value == '') {
+  // This Works Because of Closure!!!
+  if (
+    amount.value == '' ||
+    interest.value == '' ||
+    years.value == '' ||
+    monthlyPayment.value == ''
+  ) {
     return false;
   } else {
     return true;
